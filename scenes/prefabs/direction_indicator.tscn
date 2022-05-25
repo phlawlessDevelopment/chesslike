@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sprites/direction_n.png" type="Texture" id=1]
+[ext_resource path="res://scripts/direction_indicator.gd" type="Script" id=2]
+
+[node name="direction indicator" type="Sprite"]
+modulate = Color( 0, 0, 0, 1 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
