@@ -7,9 +7,8 @@ var initiative := 1
 var active := true
 var this_initiative = []
 var coins :=[]
-var units_to_act_count :=0
+var units_to_act_count := 0
 onready var gui = get_tree().root.get_node("Sandbox/GUI")
-
 
 func _ready():
 	units = get_tree().get_nodes_in_group("units")
@@ -19,29 +18,36 @@ func _ready():
 		else:
 			p2_units.append(unit)
 	coins = get_tree().get_nodes_in_group("coins")
-	units.sort_custom(self,"sort_by_init")
+	units.sort_custom(self, "sort_by_init")
 	set_process(false)
 	
 func _input(event):
 	if event.is_action_pressed("space"):
 		start_turn()
-			
 
 func _process(_delta):
 	if !active:
 		return
+	var steps_remaining := false
 	for unit in units:
-		if unit.initiative == initiative:
-			while unit.step():
-				$Timer.start(0.25)
-				active = false
-				yield($Timer,"timeout")
-				active = true
-			units_to_act_count-=1
-			resolve_turn(unit)
-	if units_to_act_count == 0:
-		set_process(false)
-	initiative +=1
+		if !unit.has_acted and unit.initiative == initiative:
+			steps_remaining = unit.step()
+			if !steps_remaining:
+				units_to_act_count -= 1
+	
+	$Timer.start(0.25)
+	active = false
+	yield($Timer, "timeout")
+	active = true
+
+	if !steps_remaining:
+		for unit in units:
+			if unit.initiative == initiative:
+				pickup_coin(unit)
+				take_piece(unit)
+		if units_to_act_count == 0:
+			set_process(false)
+		initiative +=1
 
 func start_turn():
 	initiative = 1
@@ -50,12 +56,14 @@ func start_turn():
 	units_to_act_count = units.size()
 	set_process(true)
 
-func resolve_turn(unit):
+func pickup_coin(unit):
 	for coin in coins:
 		if unit.global_position.distance_to(coin.global_position) < 10:
 			coins.erase(coin)
 			coin.queue_free()
 			gui.add_coin(unit.player_index)
+
+func take_piece(unit):
 	if unit.player_index == 0:
 		for other in p2_units:
 			if unit.global_position.distance_to(other.global_position) < 10:

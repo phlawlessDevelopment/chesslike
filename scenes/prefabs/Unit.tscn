@@ -11,9 +11,7 @@
 [ext_resource path="res://sprites/direction_e.png" type="Texture" id=9]
 [ext_resource path="res://sprites/direction_w.png" type="Texture" id=10]
 
-[node name="Unit" type="Node2D" groups=[
-"units",
-]]
+[node name="Unit" type="Node2D" groups=["units"]]
 script = ExtResource( 3 )
 initiative_textures = [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]
 direction_textures = [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 2 ) ]
@@ -30,3 +28,5 @@ texture = ExtResource( 4 )
 
 [node name="directions" type="Node2D" parent="."]
 position = Vector2( -12.0101, 14.7221 )
+
+[node name="path" type="Node2D" parent="."]

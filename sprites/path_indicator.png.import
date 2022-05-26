@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gui_outline.png-6422fb2cbfa6ba26383f5858411f517e.stex"
+path="res://.import/path_indicator.png-5238edfc0e555b938afc15e68a165353.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gui_outline.png"
-dest_files=[ "res://.import/gui_outline.png-6422fb2cbfa6ba26383f5858411f517e.stex" ]
+source_file="res://sprites/path_indicator.png"
+dest_files=[ "res://.import/path_indicator.png-5238edfc0e555b938afc15e68a165353.stex" ]
 
 [params]
 
